@@ -7,10 +7,12 @@ package com.example.homework02_program01;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn_j_saveColor;
     SeekBar sb_j_red, sb_j_green, sb_j_blue;
     ListView lv_j_listOfColors;
-    TextView tv_j_red, tv_j_green, tv_j_blue;
+    TextView tv_j_red, tv_j_green, tv_j_blue, tv_j_hexRep;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         tv_j_green = findViewById(R.id.tv_v_green);
         tv_j_blue = findViewById(R.id.tv_v_blue);
         lv_j_listOfColors = findViewById(R.id.lv_v_listOfColors);
+        tv_j_hexRep = findViewById(R.id.tv_v_hexRep);
+
     }
 
     public void registerListeners()
@@ -48,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         redSeekBarEventHandler();
         greenSeekBarEventHandler();
         blueSeekBarEventHandler();
-        colorListViewEventHandler();
+        //colorListViewEventHandler();
     }
 
     public void saveColorButtonEventHandler()
@@ -71,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b)
             {
                 Log.d("RedSeekBarEvent", "Progress: " + seekBar.getProgress());
+                changeBackgroundColor();
+                updateTextValues();
             }
 
             @Override
@@ -95,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b)
             {
                 Log.d("GreenSeekBarEvent", "Progress: " + seekBar.getProgress());
+                changeBackgroundColor();
+                updateTextValues();
             }
 
             @Override
@@ -119,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b)
             {
                 Log.d("BlueSeekBarEvent", "Progress: " + seekBar.getProgress());
+                changeBackgroundColor();
+                updateTextValues();
             }
 
             @Override
@@ -145,6 +155,40 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void changeBackgroundColor()
+    {
+        int red = sb_j_red.getProgress();
+        int green = sb_j_green.getProgress();
+        int blue = sb_j_blue.getProgress();
+        View mainActivityView = findViewById(R.id.main_activity);
+        mainActivityView.setBackgroundColor(Color.rgb(red, green, blue));
+    }
+
+    public void updateTextValues()
+    {
+        int red = sb_j_red.getProgress();
+        int green = sb_j_green.getProgress();
+        int blue = sb_j_blue.getProgress();
+        tv_j_red.setText("Red: " + red);
+        tv_j_green.setText("Green: " + green);
+        tv_j_blue.setText("Blue: " + blue);
+        if(red < 60 && green < 60 && blue < 120)
+        {
+            tv_j_red.setTextColor(Color.rgb(255,255,255));
+            tv_j_green.setTextColor(Color.rgb(255,255,255));
+            tv_j_blue.setTextColor(Color.rgb(255,255,255));
+            tv_j_hexRep.setTextColor(Color.rgb(255,255,255));
+        }
+        else
+        {
+            tv_j_red.setTextColor(Color.rgb(0,0,0));
+            tv_j_green.setTextColor(Color.rgb(0,0,0));
+            tv_j_blue.setTextColor(Color.rgb(0,0,0));
+            tv_j_hexRep.setTextColor(Color.rgb(0,0,0));
+        }
+        //tv_j_red.setTextColor(Color.rgb(0,0,0));
     }
 
 }
