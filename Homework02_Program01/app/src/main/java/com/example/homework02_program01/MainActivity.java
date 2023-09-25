@@ -17,12 +17,18 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity
+{
 
     Button btn_j_saveColor;
     SeekBar sb_j_red, sb_j_green, sb_j_blue;
     ListView lv_j_listOfColors;
     TextView tv_j_red, tv_j_green, tv_j_blue, tv_j_hexRep;
+    ArrayList<ColorInfo> listOfColors;
+    ColorListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -30,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setAssociations();
         registerListeners();
+        listOfColors = new ArrayList<ColorInfo>();
     }
 
     public void setAssociations()
@@ -62,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+                addColor();
+                fillListView();
+                adapter.notifyDataSetChanged();
+                resetView();
                 Log.d("SaveColorButtonPress", "Success");
             }
         });
@@ -171,24 +182,52 @@ public class MainActivity extends AppCompatActivity {
         int red = sb_j_red.getProgress();
         int green = sb_j_green.getProgress();
         int blue = sb_j_blue.getProgress();
+        String sRed = Integer.toHexString(red).toUpperCase();
+        String sGreen = Integer.toHexString(green).toUpperCase();
+        String sBlue = Integer.toHexString(blue).toUpperCase();
+
         tv_j_red.setText("Red: " + red);
         tv_j_green.setText("Green: " + green);
         tv_j_blue.setText("Blue: " + blue);
-        if(red < 60 && green < 60 && blue < 120)
+        tv_j_hexRep.setText("Hexadecimal Representation: " + sRed + sGreen + sBlue);
+        if (red < 60 && green < 60 && blue < 120)
         {
-            tv_j_red.setTextColor(Color.rgb(255,255,255));
-            tv_j_green.setTextColor(Color.rgb(255,255,255));
-            tv_j_blue.setTextColor(Color.rgb(255,255,255));
-            tv_j_hexRep.setTextColor(Color.rgb(255,255,255));
-        }
-        else
+            tv_j_red.setTextColor(Color.rgb(255, 255, 255));
+            tv_j_green.setTextColor(Color.rgb(255, 255, 255));
+            tv_j_blue.setTextColor(Color.rgb(255, 255, 255));
+            tv_j_hexRep.setTextColor(Color.rgb(255, 255, 255));
+        } else
         {
-            tv_j_red.setTextColor(Color.rgb(0,0,0));
-            tv_j_green.setTextColor(Color.rgb(0,0,0));
-            tv_j_blue.setTextColor(Color.rgb(0,0,0));
-            tv_j_hexRep.setTextColor(Color.rgb(0,0,0));
+            tv_j_red.setTextColor(Color.rgb(0, 0, 0));
+            tv_j_green.setTextColor(Color.rgb(0, 0, 0));
+            tv_j_blue.setTextColor(Color.rgb(0, 0, 0));
+            tv_j_hexRep.setTextColor(Color.rgb(0, 0, 0));
         }
         //tv_j_red.setTextColor(Color.rgb(0,0,0));
+    }
+
+    public void addColor()
+    {
+        int red = sb_j_red.getProgress();
+        int green = sb_j_green.getProgress();
+        int blue = sb_j_blue.getProgress();
+        String hex = Integer.toHexString(red).toUpperCase() + Integer.toHexString(green).toUpperCase() + Integer.toHexString(blue).toUpperCase();
+        ColorInfo colorToAdd = new ColorInfo(red, green, blue, hex);
+        listOfColors.add(colorToAdd);
+    }
+
+    public void fillListView()
+    {
+        adapter = new ColorListAdapter(this, listOfColors);
+        //set the listviews adapter
+        lv_j_listOfColors.setAdapter(adapter);
+    }
+
+    public void resetView()
+    {
+        sb_j_red.setProgress(255);
+        sb_j_green.setProgress(255);
+        sb_j_blue.setProgress(255);
     }
 
 }
