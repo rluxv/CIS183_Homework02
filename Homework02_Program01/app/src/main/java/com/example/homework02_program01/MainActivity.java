@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         redSeekBarEventHandler();
         greenSeekBarEventHandler();
         blueSeekBarEventHandler();
-        //colorListViewEventHandler();
+        colorListViewEventHandler();
     }
 
     public void saveColorButtonEventHandler()
@@ -158,12 +159,16 @@ public class MainActivity extends AppCompatActivity
 
     public void colorListViewEventHandler()
     {
-        lv_j_listOfColors.setOnClickListener(new View.OnClickListener()
+        lv_j_listOfColors.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public void onClick(View view)
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-
+                Log.d("Item Click", "CLICKED");
+                ColorInfo color = (ColorInfo) adapterView.getItemAtPosition(i);
+                sb_j_red.setProgress(color.getRed());
+                sb_j_green.setProgress(color.getGreen());
+                sb_j_blue.setProgress(color.getBlue());
             }
         });
     }
@@ -182,9 +187,9 @@ public class MainActivity extends AppCompatActivity
         int red = sb_j_red.getProgress();
         int green = sb_j_green.getProgress();
         int blue = sb_j_blue.getProgress();
-        String sRed = Integer.toHexString(red).toUpperCase();
-        String sGreen = Integer.toHexString(green).toUpperCase();
-        String sBlue = Integer.toHexString(blue).toUpperCase();
+        String sRed = String.format("%02X", red);
+        String sGreen = String.format("%02X", green);
+        String sBlue = String.format("%02X", blue);
 
         tv_j_red.setText("Red: " + red);
         tv_j_green.setText("Green: " + green);
@@ -211,7 +216,7 @@ public class MainActivity extends AppCompatActivity
         int red = sb_j_red.getProgress();
         int green = sb_j_green.getProgress();
         int blue = sb_j_blue.getProgress();
-        String hex = Integer.toHexString(red).toUpperCase() + Integer.toHexString(green).toUpperCase() + Integer.toHexString(blue).toUpperCase();
+        String hex = String.format("%02X", red) + String.format("%02X", green) + String.format("%02X", blue);
         ColorInfo colorToAdd = new ColorInfo(red, green, blue, hex);
         listOfColors.add(colorToAdd);
     }
