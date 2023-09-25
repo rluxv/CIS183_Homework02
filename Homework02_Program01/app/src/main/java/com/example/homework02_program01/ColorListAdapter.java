@@ -67,7 +67,7 @@ public class ColorListAdapter extends BaseAdapter
         blue.setText("Blue: " + color.getBlue());
         hex.setText("Hex: " + color.getHex());
         view.setBackgroundColor(Color.rgb(color.getRed(), color.getGreen(), color.getBlue()));
-        if (color.getRed() < 60 && color.getGreen() < 60 && color.getBlue() < 120)
+        if (color.getRed() < 85 && color.getGreen() < 60 && color.getBlue() < 120)
         {
             red.setTextColor(Color.rgb(255, 255, 255));
             green.setTextColor(Color.rgb(255, 255, 255));

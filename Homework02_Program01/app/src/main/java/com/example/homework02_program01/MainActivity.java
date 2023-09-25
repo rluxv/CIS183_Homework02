@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity
         tv_j_green.setText("Green: " + green);
         tv_j_blue.setText("Blue: " + blue);
         tv_j_hexRep.setText("Hexadecimal Representation: " + sRed + sGreen + sBlue);
-        if (red < 60 && green < 60 && blue < 120)
+        if (red < 85 && green < 60 && blue < 120)
         {
             tv_j_red.setTextColor(Color.rgb(255, 255, 255));
             tv_j_green.setTextColor(Color.rgb(255, 255, 255));
