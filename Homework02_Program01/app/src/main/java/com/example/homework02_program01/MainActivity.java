@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
                 fillListView();
                 adapter.notifyDataSetChanged();
                 resetView();
-                Log.d("SaveColorButtonPress", "Success");
+                //Log.d("SaveColorButtonPress", "Success");
             }
         });
     }
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b)
             {
-                Log.d("RedSeekBarEvent", "Progress: " + seekBar.getProgress());
+                //Log.d("RedSeekBarEvent", "Progress: " + seekBar.getProgress());
                 changeBackgroundColor();
                 updateTextValues();
             }
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b)
             {
-                Log.d("GreenSeekBarEvent", "Progress: " + seekBar.getProgress());
+                //Log.d("GreenSeekBarEvent", "Progress: " + seekBar.getProgress());
                 changeBackgroundColor();
                 updateTextValues();
             }
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b)
             {
-                Log.d("BlueSeekBarEvent", "Progress: " + seekBar.getProgress());
+                //Log.d("BlueSeekBarEvent", "Progress: " + seekBar.getProgress());
                 changeBackgroundColor();
                 updateTextValues();
             }
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-                Log.d("Item Click", "CLICKED");
+                //Log.d("Item Click", "CLICKED");
                 ColorInfo color = (ColorInfo) adapterView.getItemAtPosition(i);
                 sb_j_red.setProgress(color.getRed());
                 sb_j_green.setProgress(color.getGreen());

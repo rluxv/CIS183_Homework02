@@ -51,10 +51,6 @@ public class ColorListAdapter extends BaseAdapter
             view = mInflator.inflate(R.layout.color_cell, null);
         }
 
-        //find the gui elements in custom_cell.xml
-        //TextView name = view.findViewById(R.id.tv_v_customCell_name);
-        //TextView email = view.findViewById(R.id.tv_v_customCell_email);
-
         TextView red = view.findViewById(R.id.tv_v_c_red);
         TextView green = view.findViewById(R.id.tv_v_c_green);
         TextView blue = view.findViewById(R.id.tv_v_c_blue);
@@ -74,13 +70,6 @@ public class ColorListAdapter extends BaseAdapter
             blue.setTextColor(Color.rgb(255, 255, 255));
             hex.setTextColor(Color.rgb(255, 255, 255));
         }
-
-        //get the user at position i (i is passed to this function)
-        //User user = listOfUsers.get(i);
-
-        //set the gui for the custom_cell.xml
-        //name.setText(user.getlName() + ", " + user.getfName());
-        //email.setText(user.getEmail());
 
         //return the view we created
         return view;
