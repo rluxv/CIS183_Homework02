@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setAssociations();
-        registerListeners();
+        registerEventHandlers();
         listOfColors = new ArrayList<ColorInfo>();
     }
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void registerListeners()
+    public void registerEventHandlers()
     {
         saveColorButtonEventHandler();
         redSeekBarEventHandler();
@@ -187,6 +187,8 @@ public class MainActivity extends AppCompatActivity
         int red = sb_j_red.getProgress();
         int green = sb_j_green.getProgress();
         int blue = sb_j_blue.getProgress();
+
+        //Convert RGB to Hexadecimal
         String sRed = String.format("%02X", red);
         String sGreen = String.format("%02X", green);
         String sBlue = String.format("%02X", blue);
@@ -195,6 +197,8 @@ public class MainActivity extends AppCompatActivity
         tv_j_green.setText("Green: " + green);
         tv_j_blue.setText("Blue: " + blue);
         tv_j_hexRep.setText("Hexadecimal Representation: " + sRed + sGreen + sBlue);
+
+        //Change the color of the text if it is too dark or bright to see
         if (red < 85 && green < 60 && blue < 120)
         {
             tv_j_red.setTextColor(Color.rgb(255, 255, 255));
@@ -208,7 +212,6 @@ public class MainActivity extends AppCompatActivity
             tv_j_blue.setTextColor(Color.rgb(0, 0, 0));
             tv_j_hexRep.setTextColor(Color.rgb(0, 0, 0));
         }
-        //tv_j_red.setTextColor(Color.rgb(0,0,0));
     }
 
     public void addColor()
@@ -230,6 +233,7 @@ public class MainActivity extends AppCompatActivity
 
     public void resetView()
     {
+        //We only need to reset the progress, all the text will automatically update.
         sb_j_red.setProgress(255);
         sb_j_green.setProgress(255);
         sb_j_blue.setProgress(255);
